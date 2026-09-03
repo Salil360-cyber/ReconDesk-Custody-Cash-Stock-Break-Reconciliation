@@ -7,22 +7,27 @@ MISSING_IN_LEDGER / DUPLICATE, and reports an honest match rate across
 the FULL batch (not a cherry-picked example).
 
 AI is used deliberately in ONE place: explaining/categorizing exceptions
-that pure rule-matching leaves ambiguous. Everything else is rule-based
-on purpose — that is the "AI Judgment" bar: use AI where it adds value,
-not everywhere.
-
-Usage:
-    python generate_data.py        # creates ledger.csv + bank_statement.csv
-    python reconcile.py            # runs reconciliation, prints report
+that pure rule-matching leaves ambiguous.
 """
 
 import csv
 import os
 from collections import defaultdict
-from datetime import datetime, timedelta
+from datetime import datetime
+from dotenv import load_dotenv
+import google.generativeai as genai
+import time 
+load_dotenv()
 
-AMOUNT_TOLERANCE_PCT = 0.03   # treat <=3% amount diff as a "fee" style mismatch
-DATE_TOLERANCE_DAYS = 2       # treat <=2 day offset as a timing mismatch
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel("gemini-3.6-flash")
+else:
+    model = None
+
+AMOUNT_TOLERANCE_PCT = 0.03
+DATE_TOLERANCE_DAYS = 2
 
 
 def load_csv(path):
@@ -44,12 +49,9 @@ def reconcile(ledger_rows, bank_rows):
         ledger_by_ref[row["ref_id"]].append(row)
 
     results = []
-    seen_refs = set()
-
     all_refs = set(ledger_by_ref.keys()) | set(bank_by_ref.keys())
 
     for ref in all_refs:
-        seen_refs.add(ref)
         l_entries = ledger_by_ref.get(ref, [])
         b_entries = bank_by_ref.get(ref, [])
 
@@ -105,22 +107,7 @@ def reconcile(ledger_rows, bank_rows):
 
 
 def explain_exception(exception_row):
-    """
-    Pluggable AI hook. Wire this to an LLM API (OpenAI / Claude / Gemini)
-    to turn a raw exception into a human-readable, categorized explanation.
-    Left as a stub here so the reconciliation logic runs standalone with
-    zero API dependency — plug in your key and call your provider's SDK.
-
-    Example integration point:
-        response = client.messages.create(
-            model="...",
-            messages=[{"role": "user", "content": f"Classify this finance "
-                       f"reconciliation exception and suggest a likely root "
-                       f"cause in one sentence: {exception_row}"}]
-        )
-        return response.content[0].text
-    """
-    status = exception_row["status"]
+    """Real AI call to Gemini. Falls back to a heuristic if no API key/model."""
     heuristics = {
         "MISSING_IN_BANK": "Likely a failed/pending payment that never settled.",
         "MISSING_IN_LEDGER": "Likely an unrecorded internal transaction — check ingestion pipeline.",
@@ -128,7 +115,23 @@ def explain_exception(exception_row):
         "TIMING_DIFF": "Likely a settlement delay — same transaction, different processing date.",
         "DUPLICATE": "Likely a double-booking bug in the internal ledger.",
     }
-    return heuristics.get(status, "Needs manual review — no clear pattern.")
+
+    if model is None:
+        return heuristics.get(exception_row["status"], "Needs manual review.") + " (heuristic fallback — no API key found)"
+
+    prompt = (
+        "You are a finance-ops assistant. In ONE short sentence, explain the "
+        "most likely root cause of this bank reconciliation exception:\n"
+        f"Status: {exception_row['status']}\n"
+        f"Detail: {exception_row['detail']}\n"
+        "Answer in one sentence, no preamble."
+    )
+    try:
+        time.sleep(13)
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception as e:
+        return heuristics.get(exception_row["status"], "Needs manual review.") + f" (AI call failed: {e})"
 
 
 def generate_report(results):
@@ -143,6 +146,7 @@ def generate_report(results):
     print(f"Matched (clean + within tol.)  : {matched}")
     print(f"Exceptions                     : {len(exceptions)}")
     print(f"Match rate                     : {matched/total*100:.1f}%")
+    print(f"AI mode                        : {'Gemini (live)' if model else 'heuristic fallback'}")
     print("-" * 60)
     print("EXCEPTION LIST (every one, no cherry-picking):")
     print("-" * 60)
@@ -150,15 +154,8 @@ def generate_report(results):
         explanation = explain_exception(e)
         print(f"[{e['status']}] ref={e['ref_id']}")
         print(f"    detail : {e['detail']}")
-        print(f"    likely cause (heuristic/AI): {explanation}")
+        print(f"    likely cause: {explanation}")
     print("=" * 60)
-
-    return {
-        "total": total,
-        "matched": matched,
-        "match_rate_pct": round(matched / total * 100, 1),
-        "exceptions": exceptions,
-    }
 
 
 if __name__ == "__main__":
