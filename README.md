@@ -12,6 +12,18 @@ action, and produces an **Excel control report with a sign-off sheet**.
 
 All data is **synthetic**. Account names and ISINs are invented.
 
+## How it works
+
+```mermaid
+flowchart LR
+    A[Internal books<br/>cash ledger + positions] --> E
+    B[Custodian records<br/>cash statement + holdings] --> E
+    E[ReconDesk engine<br/>rule-based matching] --> K[Breaks<br/>type, age, priority,<br/>cause, next action]
+    K --> X[Excel control report<br/>with sign-off checklist]
+    K --> C[Breaks CSV<br/>for Power BI / SQL]
+    K -. optional .-> G[Gemini AI<br/>clearer explanations]
+```
+
 ---
 
 ## What it reconciles
@@ -55,6 +67,8 @@ paise-level rounding differences are correctly treated as matched.**
 ## The Excel control report
 
 `reports/recon_report_<date>.xlsx`
+
+![Sign-off sheet of the Excel control report](docs/images/signoff_sheet.png)
 
 | Sheet | What it's for |
 |---|---|
