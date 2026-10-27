@@ -1,0 +1,234 @@
+{
+  "seed": 42,
+  "as_of": "2026-10-23",
+  "expected": [
+    {
+      "recon": "CASH",
+      "key": "CSH392075",
+      "status": "MATCHED_WITHIN_TOLERANCE",
+      "cause": null
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH292401",
+      "status": "MATCHED_WITHIN_TOLERANCE",
+      "cause": null
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH542374",
+      "status": "MATCHED_WITHIN_TOLERANCE",
+      "cause": null
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH246991",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH570405",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH662336",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH299448",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH300896",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH360735",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH214576",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH939482",
+      "status": "TIMING_DIFF",
+      "cause": "SETTLEMENT_LAG"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH455784",
+      "status": "AMOUNT_DIFF",
+      "cause": "WITHHOLDING_TAX"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH863587",
+      "status": "AMOUNT_DIFF",
+      "cause": "WITHHOLDING_TAX"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH522179",
+      "status": "AMOUNT_DIFF",
+      "cause": "CHARGES_DIFF"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH163556",
+      "status": "AMOUNT_DIFF",
+      "cause": "CHARGES_DIFF"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH203198",
+      "status": "AMOUNT_DIFF",
+      "cause": "FX_RATE_DIFF"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH777568",
+      "status": "AMOUNT_DIFF",
+      "cause": "FX_RATE_DIFF"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH785197",
+      "status": "MISSING_AT_CUSTODIAN",
+      "cause": "INCOME_NOT_RECEIVED"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH806073",
+      "status": "MISSING_AT_CUSTODIAN",
+      "cause": "INCOME_NOT_RECEIVED"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH156802",
+      "status": "MISSING_AT_CUSTODIAN",
+      "cause": "POSSIBLE_FAILED_SETTLEMENT"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH864491",
+      "status": "MISSING_AT_CUSTODIAN",
+      "cause": "POSSIBLE_FAILED_SETTLEMENT"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH589710",
+      "status": "MISSING_AT_CUSTODIAN",
+      "cause": "POSSIBLE_FAILED_SETTLEMENT"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH531071",
+      "status": "MISSING_IN_BOOKS",
+      "cause": "UNBOOKED_CUSTODY_FEE"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH544154",
+      "status": "MISSING_IN_BOOKS",
+      "cause": "UNBOOKED_CUSTODY_FEE"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH471507",
+      "status": "MISSING_IN_BOOKS",
+      "cause": "UNBOOKED_CORPORATE_ACTION"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH551989",
+      "status": "MISSING_IN_BOOKS",
+      "cause": "UNBOOKED_TRANSACTION"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH790993",
+      "status": "DUPLICATE_IN_BOOKS",
+      "cause": "DOUBLE_BOOKING"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH201639",
+      "status": "DUPLICATE_IN_BOOKS",
+      "cause": "DOUBLE_BOOKING"
+    },
+    {
+      "recon": "CASH",
+      "key": "CSH198907",
+      "status": "DUPLICATE_AT_CUSTODIAN",
+      "cause": "CUSTODIAN_DUPLICATE"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1001|INE106S01019",
+      "status": "QTY_BREAK",
+      "cause": "QUANTITY_MISMATCH"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1001|INE105S01011",
+      "status": "QTY_BREAK",
+      "cause": "QUANTITY_MISMATCH"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1004|US9Z02S10015",
+      "status": "QTY_BREAK",
+      "cause": "QUANTITY_MISMATCH"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1002|INE108S01015",
+      "status": "QTY_BREAK",
+      "cause": "UNBOOKED_CORPORATE_ACTION"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1005|US9Z02S10015",
+      "status": "QTY_BREAK",
+      "cause": "UNBOOKED_CORPORATE_ACTION"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1001|US9Z01S10017",
+      "status": "MISSING_AT_CUSTODIAN",
+      "cause": "POSITION_NOT_AT_CUSTODIAN"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1003|INE101S01019",
+      "status": "MISSING_AT_CUSTODIAN",
+      "cause": "POSITION_NOT_AT_CUSTODIAN"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1003|INE107S01017",
+      "status": "MISSING_IN_BOOKS",
+      "cause": "UNBOOKED_POSITION"
+    },
+    {
+      "recon": "STOCK",
+      "key": "ACC-1005|US9Z01S10017",
+      "status": "MISSING_IN_BOOKS",
+      "cause": "UNBOOKED_POSITION"
+    }
+  ]
+}
